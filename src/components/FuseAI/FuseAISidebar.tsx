@@ -39,7 +39,7 @@ export const FuseAISidebar: React.FC = () => {
     <aside className="w-[200px] bg-[#F4F3F0] flex flex-col">
       <div className="p-4">
         <div className="flex items-center gap-1">
-          <img src="/FuseAi logo.svg" alt="FuseAI" />
+          <img src="/FuseAI logo.svg" alt="FuseAI" />
         </div>
       </div>
 

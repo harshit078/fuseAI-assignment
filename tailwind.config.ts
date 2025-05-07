@@ -63,7 +63,6 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Custom colors for the Fuse AI design
 				fuseai: {
 					blue: '#0073EA',
 					green: '#00A67E',
