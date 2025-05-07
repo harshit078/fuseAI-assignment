@@ -69,8 +69,9 @@ const EditorToolbarButton: React.FC<{
   );
 };
 
-const WaitForDays: React.FC<{ days: number; }> = ({ days }) => (
-  <div className="flex flex-col items-center mb-4">
+const WaitForDays: React.FC<{ days: number; dashedTop?: boolean }> = ({ days, dashedTop }) => (
+  <div className="flex flex-col items-center">
+    {dashedTop && <div className="h-12 w-0.5 bg-[repeating-linear-gradient(to_bottom,_#6B7280_0px,_#6B7280_4px,_transparent_4px,_transparent_10px)]" />}
     <div className="bg-white border border-gray-200 rounded-md shadow-sm flex items-center py-1.5 px-3">
       <span className="text-sm text-black mr-2">Wait for</span>
       <div className="relative">
@@ -81,7 +82,7 @@ const WaitForDays: React.FC<{ days: number; }> = ({ days }) => (
       </div>
       <span className="text-sm text-black ml-2">then</span>
     </div>
-    <div className="h-16 border-l-2 border-dashed border-slate-500" />
+    <div className="h-12 w-0.5 bg-[repeating-linear-gradient(to_bottom,_#6B7280_0px,_#6B7280_4px,_transparent_4px,_transparent_10px)]" />
   </div>
 );
 
@@ -94,10 +95,10 @@ const AIGeneratedToggle: React.FC<{ checked: boolean; onChange: () => void }> = 
     <Sparkles className={`h-5 w-5 ${checked ? 'text-[#407986]' : 'text-gray-500'}`} />
     <span className={`font-medium text-base ${checked ? 'text-[#407986]' : 'text-gray-700'}`}>AI Generated</span>
     <span
-      className={`relative inline-block w-10 h-6 transition-colors duration-200 ${checked ? 'bg-[#407986]' : 'bg-gray-300'} rounded-full`}
+      className={`relative inline-block w-10 h-6 transition-colors duration-200 ${checked ? 'bg-[#407986]' : 'bg-gray-300'} rounded`}
     >
       <span
-        className={`absolute left-1 top-1 w-4 h-4 bg-white rounded-full shadow transform transition-transform duration-200 ${checked ? 'translate-x-4' : ''}`}
+        className={`absolute left-1 top-1 w-4 h-4 bg-white rounded shadow transform transition-transform duration-200 ${checked ? 'translate-x-4' : ''}`}
       />
     </span>
   </button>
@@ -133,8 +134,11 @@ export const FuseAIEmailEditor: React.FC<FuseAIEmailEditorProps> = ({
   return (
     <TooltipProvider>
       <div className="bg-relative">
-        <WaitForDays days={3} />
-        <div className={`rounded-lg bg-white shadow-sm ${variant === 'first' && selected ? 'border border-[#2D7A89]' : ''}`}>
+        {variant === 'first' && <WaitForDays days={3} />}
+        {variant === 'second' && <WaitForDays days={3} dashedTop />}
+        {/* Email Editor */}
+        <div className="flex justify-center items-center w-full h-full">
+        <div className={`rounded-lg bg-white shadow-md ${variant === 'first' && selected ? 'border border-[#2D7A89]' : ''} w-[50vw]`}>
           <div className="px-4 py-3 border-b border-gray-200 flex items-center justify-between bg-[#e7e7e734]">
             <div className="flex items-center">
               <div className="rounded-sm mr-2 flex items-center justify-center text-white text-xs font-bold">
@@ -196,9 +200,10 @@ export const FuseAIEmailEditor: React.FC<FuseAIEmailEditorProps> = ({
               )}
             </div>
           </div>
+          {/* Editor Toolbar */}
           <div className="border-t rounded-b-lg border-gray-200 bg-[#E7E7E7] px-4 py-3 flex justify-between items-center">
             <div className="flex items-center gap-2">
-              <button className="text-sm bg-gray-50 border border-gray-200 rounded px-2 py-1 flex items-center hover:bg-gray-100 transition-colors">
+              <button className="text-sm  border border-gray-200 rounded px-2 py-1 flex items-center hover:bg-gray-100 transition-colors">
                 <span className="text-gray-700 font-medium">Normal text</span>
                 <ChevronDown className="ml-1 h-4 w-4 text-gray-500" />
               </button>
@@ -226,8 +231,11 @@ export const FuseAIEmailEditor: React.FC<FuseAIEmailEditorProps> = ({
             <AIGeneratedToggle checked={aiGenerated} onChange={() => setAIGenerated((v) => !v)} />
           </div>
         </div>
+        </div>
+        {/* Message Topic */}
         {variant === 'second' && (
-          <div className="border  bg-[#E7E7E7] border-t bg-white  px-4 py-3 flex flex-col gap-2 relative -mt-1">
+          <div className="flex justify-center items-center w-full h-full">
+          <div className="border w-[50vw] bg-[#E7E7E7] border-t px-4 py-3 flex flex-col gap-2 relative -mt-1">
             <div className="flex items-center gap-2 mb-1">
               <Sparkles className="h-5 w-5 text-gray-500" />
               <span className="font-medium text-sm">Message Topic</span>
@@ -236,17 +244,18 @@ export const FuseAIEmailEditor: React.FC<FuseAIEmailEditorProps> = ({
                 <svg className="w-4 h-4 text-gray-400 group-hover:text-gray-600 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="10" strokeWidth="2" /><text x="12" y="16" textAnchor="middle" fontSize="12" fill="currentColor">i</text></svg>
               </div>
             </div>
-            <div className="border border-gray-300 rounded p-2 text-sm bg-gray-50 mb-2">
+            <div className="border border-gray-300 rounded-xl p-2 text-sm bg-gray-50 mb-2">
               Unlock Your Potential: Discover AI-Powered Therapy: Embark on a journey of self-discovery with Talkhappi's groundbreaking AI-based therapy platform. Designed for those feeling isolated, our technology offers personalized mental health assistance, combining innovative AI with compassionate counseling. I
             </div>
             <div className="flex gap-2 justify-between">
               <div className="flex gap-2">
-                <Button className="bg-white border border-gray-200 text-gray-700 rounded px-3 py-1 text-xs font-medium hover:bg-gray-100">Write in spanish</Button>
-                <Button className="bg-white border border-gray-200 text-gray-700 rounded px-3 py-1 text-xs font-medium hover:bg-gray-100">Use bullet points</Button>
-                <Button className="bg-white border border-gray-200 text-gray-700 rounded px-3 py-1 text-xs font-medium hover:bg-gray-100">Make it more casual</Button>
+                <Button className="bg-white border border-gray-200 text-gray-700 rounded-xl px-3 py-1 text-xs font-medium hover:bg-gray-100">Write in spanish</Button>
+                <Button className="bg-white border border-gray-200 text-gray-700 rounded-xl px-3 py-1 text-xs font-medium hover:bg-gray-100">Use bullet points</Button>
+                <Button className="bg-white border border-gray-200 text-gray-700 rounded-xl px-3 py-1 text-xs font-medium hover:bg-gray-100">Make it more casual</Button>
               </div>
               <Button className="bg-black text-white rounded px-3 py-1 text-xs font-medium hover:bg-gray-800">Regenerate</Button>
             </div>
+          </div>
           </div>
         )}
       </div>

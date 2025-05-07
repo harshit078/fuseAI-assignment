@@ -79,7 +79,7 @@ export const FuseAIEngagement: React.FC<FuseAIEngagementProps> = ({ className })
                 </div>
               </div>
               {/* Right panel */}
-              <div className="flex-1 bg-[#F6F6F6] p-12 overflow-y-auto h-[calc(100vh-160px)]">
+              <div className="flex-1 bg-[#F6F6F6] p-4 overflow-y-auto h-[calc(100vh-160px)]">
                 <FuseAIEmailEditor 
                   recipient={undefined} 
                   subject={''} 
@@ -87,7 +87,7 @@ export const FuseAIEngagement: React.FC<FuseAIEngagementProps> = ({ className })
                   selected={true}
                   variant="first"
                 />
-                <div className="mt-8">
+                <div>
                   <FuseAIEmailEditor 
                     isSecondEmail={true} 
                     recipient={undefined} 
