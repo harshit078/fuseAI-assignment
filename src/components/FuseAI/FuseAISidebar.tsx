@@ -36,10 +36,10 @@ export const FuseAISidebar: React.FC = () => {
   ];
 
   return (
-    <aside className="w-[200px] bg-[#F4F3F0] border-r border-gray-200 flex flex-col">
+    <aside className="w-[200px] bg-[#F4F3F0] flex flex-col">
       <div className="p-4">
         <div className="flex items-center gap-1">
-          <img src="/public/FuseAi logo.svg" alt="FuseAI" />
+          <img src="/FuseAi logo.svg" alt="FuseAI" />
         </div>
       </div>
 

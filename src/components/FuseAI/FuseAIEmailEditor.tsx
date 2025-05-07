@@ -104,9 +104,6 @@ const AIGeneratedToggle: React.FC<{ checked: boolean; onChange: () => void }> = 
 );
 
 export const FuseAIEmailEditor: React.FC<FuseAIEmailEditorProps> = ({
-  recipient,
-  subject,
-  content,
   onCopy,
   onDelete,
   selected = false,
@@ -141,12 +138,12 @@ export const FuseAIEmailEditor: React.FC<FuseAIEmailEditorProps> = ({
           <div className="px-4 py-3 border-b border-gray-200 flex items-center justify-between bg-[#e7e7e734]">
             <div className="flex items-center">
               <div className="rounded-sm mr-2 flex items-center justify-center text-white text-xs font-bold">
-                <img src="/public/Gmail Logo Icon.svg" alt ="Gmail logo" className='w-5 h-5' />
+              <img src="/Gmail Logo Icon.svg" alt="Gmail logo" className='w-5 h-5' />
               </div>
               <span className="font-medium text-gray-800">Email</span>
               <ChevronDown className="ml-1 h-4 w-4 text-gray-500" />
             </div>
-            <div className="flex gap-3">
+            <div className="flex  gap-3">
               <Button
                 variant="ghost"
                 size="icon"

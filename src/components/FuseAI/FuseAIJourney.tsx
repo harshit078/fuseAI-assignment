@@ -32,7 +32,6 @@ export const FuseAIJourney: React.FC = () => {
     }
   ];
 
-  // Assume the selected email is id:2 for this example
   const selectedId = 2;
   return (
     <div className="space-y-2">

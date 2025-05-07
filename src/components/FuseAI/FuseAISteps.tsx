@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button } from '../ui/button';
 
 export const FuseAISteps: React.FC = () => {
   const steps = [

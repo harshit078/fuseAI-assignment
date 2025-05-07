@@ -29,7 +29,7 @@ export const FuseAIEngagement: React.FC<FuseAIEngagementProps> = ({ className })
       
       <div className="flex flex-col flex-1">
         <FuseAIHeader title="AI Engagement" />
-        {/* Tabs - full width border */}
+        {/* Tabs*/}
         <div className="w-full mt-3 border-b border-gray-200">
           <div className="flex max-w-screen mx-auto px-6 ">
             {tabs.map((tab) => (
@@ -43,11 +43,11 @@ export const FuseAIEngagement: React.FC<FuseAIEngagementProps> = ({ className })
             ))}
           </div>
         </div>
-        {/* Steps - full width border */}
+        {/* Steps*/}
         <div className="w-full mt-3 border-b border-gray-200">
           <div className="flex items-center justify-between max-w-screen mx-auto px-6 py-2">
             <FuseAISteps />
-            <div className="flex gap-3">
+            <div className="flex mb-3 gap-3">
               <Button className="rounded-xl w-24 font-medium">Back</Button>
               <Button className="bg-black rounded-xl w-24 text-white hover:bg-gray-800 font-medium">Next</Button>
             </div>
@@ -56,34 +56,30 @@ export const FuseAIEngagement: React.FC<FuseAIEngagementProps> = ({ className })
         <main className="flex-1 overflow-auto">
           <div className="max-w-screen mx-auto">
             {/* Main Content */}
-            <div className="flex">
-              {/* Left panel - Journey */}
-              <div className="w-[350px] p-4 shrink-0 border-r border-gray-200 pr-6">
+            <div className="flex h-[calc(100vh-160px)]">
+              {/* Left panel */}
+              <div className="w-[350px] p-4 shrink-0 border-r border-gray-200 pr-6 sticky top-[112px] h-[calc(100vh-160px)] bg-white z-10">
                 <div className="flex justify-between items-center mb-4">
                   <h3 className="font-medium text-fuseai-black text-base">Add Step</h3>
                 </div>
-                
                 {/* Email/LinkedIn buttons */}
                 <div className="flex gap-3 mb-6">
                   <button className="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-md bg-white hover:bg-gray-50 transition-colors">
-                    <img src="/public/Gmail Logo Icon.svg" alt ="Gmail logo" className='w-5 h-5' />
+                  <img src="/Gmail Logo Icon.svg" alt="Gmail logo" className='w-5 h-5' />
                     <span className="text-sm font-medium">Email</span>
                   </button>
-                  
                   <button className="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-md bg-white hover:bg-gray-50 transition-colors">
-                    <img src="/public/LinkedIn Icons.svg" alt="Linkedin Icon" className='w-5 h-5' />
+                    <img src="/LinkedIn Icons.svg" alt="Linkedin Icon" className='w-5 h-5' />
                     <span className="text-sm font-medium">LinkedIn</span>
                   </button>
                 </div>
-                
                 <div className="mb-6">
                   <h3 className="font-medium text-fuseai-black mb-3">Journey</h3>
                   <FuseAIJourney />
                 </div>
               </div>
-              
-              {/* Right panel - Email Editor */}
-              <div className="flex-1 bg-[#F6F6F6] p-12">
+              {/* Right panel */}
+              <div className="flex-1 bg-[#F6F6F6] p-12 overflow-y-auto h-[calc(100vh-160px)]">
                 <FuseAIEmailEditor 
                   recipient={undefined} 
                   subject={''} 
