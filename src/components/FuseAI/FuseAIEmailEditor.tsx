@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   RefreshCw, AlignLeft, AlignCenter, AlignRight,
   ListOrdered, CheckSquare, Image as ImageIcon,
   Code, Bold, Italic, Link as LinkIcon,
   Underline, Strikethrough, ChevronDown,
-  Copy, Trash2, RefreshCcw, Sparkles
+  Copy, Trash2, RefreshCcw, Sparkles, ChevronsLeftRight, List, Eraser
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { TooltipProvider, TooltipRoot, TooltipTrigger, TooltipContent, TooltipPortal } from '@/components/ui/tooltip';
@@ -90,9 +90,9 @@ const AIGeneratedToggle: React.FC<{ checked: boolean; onChange: () => void }> = 
   <button
     type="button"
     onClick={onChange}
-    className={`flex items-center gap-2 focus:outline-none`}
+    className={`flex items-center pl-7 gap-2 focus:outline-none`}
   >
-    <Sparkles className={`h-5 w-5 ${checked ? 'text-[#407986]' : 'text-gray-500'}`} />
+    <Sparkles className="h-5 w-5" />
     <span className={`font-medium text-base ${checked ? 'text-[#407986]' : 'text-gray-700'}`}>AI Generated</span>
     <span
       className={`relative inline-block w-10 h-6 transition-colors duration-200 ${checked ? 'bg-[#407986]' : 'bg-gray-300'} rounded`}
@@ -109,28 +109,25 @@ export const FuseAIEmailEditor: React.FC<FuseAIEmailEditorProps> = ({
   onDelete,
   selected = false,
   variant = 'first',
+  content
 }) => {
-  const cardText = variant === 'first'
+  const initialContent = variant === 'first'
     ? {
         greeting: 'Hi John,',
-        body: [
-          "I hope this message finds you well! As a CPA and owner of your firm, I know that supporting the mental wellness of both your team and clients is crucial, especially during busy periods.",
-          "Talkhappi offers innovative AI-powered therapy that can unlock instant mental wellness. Our platform provides fast, personalized counseling—eliminating long wait times and delivering tailored feedback to empower the mental health of your staff."
-        ],
         signature: null
       }
     : {
         greeting: 'Hi Eva,',
-        body: [
-          "As a leader at Tai Tung Pharmacy, I can imagine supporting your team through challenges like isolation and stress might be closely aligned with your company's commitment to wellness. At Talkhappi, we've designed an AI-based therapy platform specifically for personalized mental health support, helping tackle feelings of isolation and empowering individuals to unlock their full potential.",
-          "Could we explore how Talkhappi might support your team's well-being goals? I'd love to connect soon—here's my calendar to find a convenient time: <calendarLink>https://calendly.com/app/intro/meetings</calendarLink>"
-        ],
         signature: {
           name: 'Ethan Parkinson',
           title: 'Founder, Talkhappi'
         }
       };
-  const [aiGenerated, setAIGenerated] = React.useState(variant === 'first');
+  
+  const [greeting, setGreeting] = useState(content?.greeting || initialContent.greeting);
+  const [signature, setSignature] = useState(content?.signature || initialContent.signature);
+  const [aiGenerated, setAIGenerated] = useState(variant === 'first');
+  
   return (
     <TooltipProvider>
       <div className="bg-relative">
@@ -138,7 +135,7 @@ export const FuseAIEmailEditor: React.FC<FuseAIEmailEditorProps> = ({
         {variant === 'second' && <WaitForDays days={3} dashedTop />}
         {/* Email Editor */}
         <div className="flex justify-center items-center w-full h-full">
-        <div className={`rounded-lg bg-white shadow-md ${variant === 'first' && selected ? 'border border-[#2D7A89]' : ''} w-[50vw]`}>
+        <div className={`rounded-lg bg-white shadow-md ${variant === 'first' && selected ? 'border border-[#2D7A89]' : ''} w-[828px] h-[413px]`}>
           <div className="px-4 py-3 border-b border-gray-200 flex items-center justify-between bg-[#e7e7e734]">
             <div className="flex items-center">
               <div className="rounded-sm mr-2 flex items-center justify-center text-white text-xs font-bold">
@@ -184,58 +181,83 @@ export const FuseAIEmailEditor: React.FC<FuseAIEmailEditorProps> = ({
             </div>
             <div className="border-b border-gray-200 w-full mb-4" />
             <div className="mb-4 border-b border-gray-200 pb-3">
-              <p className="mb-1 text-gray-800">Transforming Mental Wellness for Your Team</p>
+              <input
+                type="text"
+                value="Transforming Mental Wellness for Your Team"
+                placeholder="Subject"
+                className="w-full mb-1 text-gray-800 border-none focus:outline-none focus:ring-0 p-0"
+              />
             </div>
             <div className="mb-6 prose prose-sm max-w-none">
-              <p className="mb-4 text-gray-800">{cardText.greeting}</p>
-              {cardText.body.map((paragraph, index) => (
-                <p key={index} className="mb-4 text-gray-800 leading-relaxed">{paragraph}</p>
-              ))}
-              {cardText.signature && (
+              <textarea
+                value={greeting}
+                onChange={(e) => setGreeting(e.target.value)}
+                className="w-full mb-4 text-gray-800 border-none resize-none focus:outline-none focus:ring-0 p-0"
+                rows={1}
+              />
+              {signature && (
                 <>
-                  <p className="mb-1 text-gray-800">Warm regards,</p>
-                  <p className="mb-1 text-gray-800">{cardText.signature.name}</p>
-                  <p className="text-gray-800">{cardText.signature.title}</p>
+                  <textarea
+                  defaultValue="Write Text here ...."
+                    className="w-full mb-1 text-gray-800 border-none resize-none focus:outline-none focus:ring-0 p-0"
+                    rows={1}
+                  />
+                  <textarea
+                    value={signature.name}
+                    onChange={(e) => setSignature({...signature, name: e.target.value})}
+                    className="w-full mb-1 text-gray-800 border-none resize-none focus:outline-none focus:ring-0 p-0"
+                    rows={1}
+                  />
+                  <textarea
+                    value={signature.title}
+                    onChange={(e) => setSignature({...signature, title: e.target.value})}
+                    className="w-full text-gray-800 border-none resize-none focus:outline-none focus:ring-0 p-0"
+                    rows={1}
+                  />
                 </>
               )}
             </div>
           </div>
           {/* Editor Toolbar */}
-          <div className="border-t rounded-b-lg border-gray-200 bg-[#E7E7E7] px-4 py-3 flex justify-between items-center">
+          <div className="border-t relative bottom-4 rounded-b-lg border-gray-200 bg-[#E7E7E7] w-auto h-auto px-4 py-3 flex">
             <div className="flex items-center gap-2">
-              <button className="text-sm  border border-gray-200 rounded px-2 py-1 flex items-center hover:bg-gray-100 transition-colors">
-                <span className="text-gray-700 font-medium">Normal text</span>
-                <ChevronDown className="ml-1 h-4 w-4 text-gray-500" />
-              </button>
-              <div className="flex items-center ml-1">
-                <EditorToolbarButton icon={<Bold size={18} />} tooltip="Bold" />
+              {/* Normal text dropdown */}
+              <div className="flex gap-2 items-center">
+                <button className="text-sm border border-gray-200 rounded px-2 py-1 flex items-center hover:bg-gray-300 transition-colors">
+                  <span className="text-gray-700 font-medium">Normal text</span>
+                  <ChevronDown className="ml-1 h-4 w-4 text-gray-500" />
+                </button>
+              </div>
+              <div className="flex items-center">
+                <EditorToolbarButton icon={<AlignLeft size={18}/>} tooltip="Align left" />
+              </div>
+              {/* Formatting icons */}
+              <div className="flex gap-1 items-center">
+                <EditorToolbarButton icon={<Bold size={18} strokeWidth={3} />} tooltip="Bold" className='text-black' />
                 <EditorToolbarButton icon={<Italic size={18} />} tooltip="Italic" />
                 <EditorToolbarButton icon={<Underline size={18} />} tooltip="Underline" />
                 <EditorToolbarButton icon={<Strikethrough size={18} />} tooltip="Strikethrough" />
-                <EditorToolbarButton icon={<LinkIcon size={18} />} tooltip="Insert link" />
-              </div>
-              <div className="flex items-center ml-1 border-l border-gray-200 pl-1">
-                <EditorToolbarButton icon={<AlignLeft size={18} />} tooltip="Align left" />
-                <EditorToolbarButton icon={<AlignCenter size={18} />} tooltip="Center" />
-                <EditorToolbarButton icon={<AlignRight size={18} />} tooltip="Align right" />
-              </div>
-              <div className="flex items-center ml-1 border-l border-gray-200 pl-1">
+                <EditorToolbarButton icon={<ChevronsLeftRight size={18} />} tooltip="Insert link" />
+                <EditorToolbarButton icon={<Eraser size={18} />} tooltip="Erase" />
+                </div>
+                <div className="flex gap-1 items-center">
+                <EditorToolbarButton icon={<List size={18} />} tooltip="Bullet list" />
                 <EditorToolbarButton icon={<ListOrdered size={18} />} tooltip="Numbered list" />
-                <EditorToolbarButton icon={<CheckSquare size={18} />} tooltip="Checklist" />
-              </div>
-              <div className="flex items-center ml-1 border-l border-gray-200 pl-1">
+                </div>
+                <div className="flex gap-1 items-center">
                 <EditorToolbarButton icon={<ImageIcon size={18} />} tooltip="Insert image" />
                 <EditorToolbarButton icon={<Code size={18} />} tooltip="Insert code" />
-              </div>
+                </div>
+                <AIGeneratedToggle checked={aiGenerated} onChange={() => setAIGenerated((v) => !v)} />
+              <div />
             </div>
-            <AIGeneratedToggle checked={aiGenerated} onChange={() => setAIGenerated((v) => !v)} />
           </div>
         </div>
         </div>
         {/* Message Topic */}
         {variant === 'second' && (
           <div className="flex justify-center items-center w-full h-full">
-          <div className="border w-[50vw] bg-[#E7E7E7] border-t px-4 py-3 flex flex-col gap-2 relative -mt-1">
+          <div className="border shadow-md  w-[828px]  bg-[#E7E7E7] border-t px-4 py-3 flex flex-col gap-2 relative -mt-1">
             <div className="flex items-center gap-2 mb-1">
               <Sparkles className="h-5 w-5 text-gray-500" />
               <span className="font-medium text-sm">Message Topic</span>
@@ -244,9 +266,11 @@ export const FuseAIEmailEditor: React.FC<FuseAIEmailEditorProps> = ({
                 <svg className="w-4 h-4 text-gray-400 group-hover:text-gray-600 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="10" strokeWidth="2" /><text x="12" y="16" textAnchor="middle" fontSize="12" fill="currentColor">i</text></svg>
               </div>
             </div>
-            <div className="border border-gray-300 rounded-xl p-2 text-sm bg-gray-50 mb-2">
-              Unlock Your Potential: Discover AI-Powered Therapy: Embark on a journey of self-discovery with Talkhappi's groundbreaking AI-based therapy platform. Designed for those feeling isolated, our technology offers personalized mental health assistance, combining innovative AI with compassionate counseling. I
-            </div>
+            <textarea
+              className="border border-gray-300 rounded-xl p-2 text-sm bg-gray-50 mb-2 resize-none w-full"
+              rows={4}
+              defaultValue="Unlock Your Potential: Discover AI-Powered Therapy: Embark on a journey of self-discovery with Talkhappi's groundbreaking AI-based therapy platform. Designed for those feeling isolated, our technology offers personalized mental health assistance, combining innovative AI with compassionate counseling. I"
+            />
             <div className="flex gap-2 justify-between">
               <div className="flex gap-2">
                 <Button className="bg-white border border-gray-200 text-gray-700 rounded-xl px-3 py-1 text-xs font-medium hover:bg-gray-100">Write in spanish</Button>

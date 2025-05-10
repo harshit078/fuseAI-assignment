@@ -97,7 +97,7 @@
 
 /* Custom styles for the FuseAI component */
 .fuseai-tab {
-  @apply pb-4 border-b-2 border-transparent text-sm font-medium text-fuseai-darkGray transition-all cursor-pointer hover:text-fuseai-black;
+  @apply pb-4 mr-6 border-b-4 border-transparent text-sm font-medium text-fuseai-darkGray transition-all cursor-pointer hover:text-fuseai-black;
 }
 
 .fuseai-tab.active {

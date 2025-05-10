@@ -11,7 +11,7 @@ import {
   Target,
   Users,
   ShoppingBag,
-  User,
+  LoaderCircle,
 } from 'lucide-react';
 
 export const FuseAISidebar: React.FC = () => {
@@ -32,13 +32,12 @@ export const FuseAISidebar: React.FC = () => {
     { title: 'Website Visitors', icon: <Users size={18} />, section: null },
     { title: 'Buyer Intent', icon: <ShoppingBag size={18} />, section: null },
     { title: '', icon: null, section: true },
-    { title: 'Profile', icon: <User size={18} />, section: null },
   ];
 
   return (
-    <aside className="w-[200px] bg-[#F4F3F0] flex flex-col">
-      <div className="p-4">
-        <div className="flex items-center gap-1">
+    <aside className="flex flex-col w-[199px]  items-start gap-0 px-2 py-4 bg-[#F4F3F0]">
+      <div className="p-2">
+        <div className="flex mb-2 items-center gap-1">
         <img src="/FuseAI logo.svg" alt="FuseAI logo" />
         </div>
       </div>
@@ -47,7 +46,7 @@ export const FuseAISidebar: React.FC = () => {
         {sidebarItems.map((item, index) => {
           if (item.section) {
             return (
-              <div key={index} className="px-4 py-2 text-xs font-semibold text-[#888888]">
+              <div key={index} className="px-4 mt-4 py-2 font-inter font-semibold text-sm tracking-normal leading-normal text-left text-[#888888]">
                 {item.title}
               </div>
             );
@@ -60,62 +59,36 @@ export const FuseAISidebar: React.FC = () => {
           return (
             <div
               key={index}
-              className="px-4 py-2 flex items-center gap-2 hover:bg-gray-200 cursor-pointer"
+              className="px-4 py-2 rounded-md flex items-center gap-2 hover:bg-gray-200 cursor-pointer"
             >
               {item.icon && (
-                <div className="w-5 h-5 flex items-center justify-center text-gray-500">
+                <div className="w-5 h-5 flex items-center justify-centers text-gray-500">
                   {item.icon}
                 </div>
               )}
-              <span className="text-sm text-[#888888]">{item.title}</span>
+              <span className="font-sans font-normal text-[14px] leading-normal tracking-normal text-left text-[#888888]">{item.title}</span>
             </div>
           );
         })}
       </div>
 
+      <div className="flex flex-col gap-3">
       <div className="p-4 flex items-center justify-between">
         <div className="flex items-center gap-1">
           <div className="w-5 h-5 flex items-center justify-center">
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M12 2L2 7L12 12L22 7L12 2Z"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M2 17L12 22L22 17"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M2 12L12 17L22 12"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <LoaderCircle  strokeWidth={2} color='#2D7A89' />
           </div>
-          <span className="text-xs">295K Credits</span>
+          <span className="font-sans font-semibold text-[14px] leading-normal tracking-normal text-[#888888] text-left">295K Credits</span>
         </div>
       </div>
-
-      <div className="mb-3 px-4 py-2 flex items-center gap-2 hover:bg-gray-200 cursor-pointer">
+      <div className="mb-1 px-4 py-1 flex items-center gap-2 hover:bg-gray-200 cursor-pointer">
         <div className="w-5 h-5 rounded-full bg-green-600 flex items-center justify-center text-xs text-white">
           S
         </div>
-        <span className="text-sm">Profile</span>
+        <span className="text-sm text-[#888888]">Profile</span>
       </div>
+      </div>
+
     </aside>
   );
 };

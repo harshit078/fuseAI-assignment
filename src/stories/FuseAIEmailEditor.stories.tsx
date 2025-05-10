@@ -22,7 +22,11 @@ type Story = StoryObj<typeof meta>;
 
 const FullScreenContainer = (props: { children: React.ReactNode }) => (
   <div className="w-full h-screen bg-[#F6F6F6] flex items-center justify-center">
-    <div className="w-full h-full">{props.children}</div>
+    <div className="w-full h-full flex items-center justify-center">
+      <div className="lg:w-[804px] xl:w-[944px] w-full max-w-full mx-auto">
+        {props.children}
+      </div>
+    </div>
   </div>
 );
 
@@ -76,7 +80,7 @@ export const WaitForDaysDemo: Story = {
     <div className="w-full h-screen bg-[#F6F6F6] flex flex-col items-center justify-center gap-12">
       {/* Top WaitForDays (no dashed line above) */}
       <div className="w-full flex justify-center">
-        <div className="w-full h-full">
+        <div className="w-full h-full lg:w-[804px] xl:w-[944px] max-w-full">
           <FuseAIEmailEditor
             recipient={{ name: 'John Smith', email: 'john@domain.com', initial: 'J' }}
             subject="Transforming Mental Wellness for Your Team"
@@ -93,9 +97,9 @@ export const WaitForDaysDemo: Story = {
           />
         </div>
       </div>
-      {/* Between cards WaitForDays (with dashed line above) */}
+      {/* Between cards WaitForDays*/}
       <div className="w-full flex justify-center">
-        <div className="w-full h-full">
+        <div className="w-full h-full lg:w-[804px] xl:w-[944px] max-w-full">
           <FuseAIEmailEditor
             recipient={{ name: 'Eva', email: 'eva@domain.com', initial: 'E' }}
             subject="Transforming Mental Wellness for Your Team"

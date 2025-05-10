@@ -25,7 +25,7 @@ export const FuseAISteps: React.FC = () => {
   ];
 
   return (
-    <div className="flex h-8 items-center gap-6 mb-4">
+    <div className="flex items-center gap-6">
       {steps.map((step, index) => (
         <React.Fragment key={step.id}>
           <div className="flex items-center">
@@ -36,7 +36,7 @@ export const FuseAISteps: React.FC = () => {
                 </svg>
               ) : step.id}
             </div>
-            <span className="ml-2 text-sm font-medium text-fuseai-black">{step.title}</span>
+            <span className="ml-2 font-sans font-normal text-[12px] leading-[21px] tracking-normal text-center">{step.title}</span>
           </div>
         </React.Fragment>
       ))}
